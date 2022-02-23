@@ -1,4 +1,4 @@
-# HWPlugin
+# HWPlugin 
 
 Here will you see how to build an plugin for Hentai Web  
 The plugin path is `/hentai-web/plugins/<PLUGINNAME>/`
