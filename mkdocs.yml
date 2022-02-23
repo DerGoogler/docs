@@ -1,0 +1,45 @@
+site_name: DG-Project Docs
+copyright: Copyright &copy; 2022 Der_Googler
+site_url: https://docs.dergoogler.com
+
+extra_css:
+  - css/style.css
+
+markdown_extensions:
+  - meta
+  - def_list
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+
+repo_url: https://github.com/DerGoogler/docs
+repo_name: DerGoogler/docs
+edit_uri: https://github.com/DerGoogler/docs/edit/master/docs/
+
+extra:
+  version: 1.0
+  social:
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/Der_Googler
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  features:
+    - navigation.indexes
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
