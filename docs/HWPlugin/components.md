@@ -1,5 +1,7 @@
 # Components
 
+These components can placed in the plugin description
+
 ## DiscordWidget
 
 ```html
