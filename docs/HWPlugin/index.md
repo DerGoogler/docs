@@ -1,4 +1,4 @@
-# HWPlugin 
+# HWPlugin
 
 Here will you see how to build an plugin for Hentai Web  
 The plugin path is `/hentai-web/plugins/<PLUGINNAME>/`
@@ -6,6 +6,7 @@ The plugin path is `/hentai-web/plugins/<PLUGINNAME>/`
 ## Start
 
 Function should start like this
+For this needs to be in `/hentai-web/plugins/<PLUGINNAME>/index.js`
 
 ```js
 initFile((plugin) => {
@@ -13,9 +14,18 @@ initFile((plugin) => {
 });
 ```
 
-## Build
+> The plugin name should always equal to the folder name!
 
-In `/hentai-web/plugins/<PLUGINNAME>/plugin.yaml`
+If you want another file name, change the `run` in `plugin.yaml` to your owm
+
+```diff
+- run: index.js
++ run: bundle.js
+```
+
+## Plugin.yaml
+
+Setup an config file in `/hentai-web/plugins/<PLUGINNAME>/plugin.yaml`. This is required to make the plugin run
 
 ```yaml
 run: index.js
@@ -43,9 +53,8 @@ options:
   allowEditor: true
 ```
 
-> Note: The `run` is required, without will not work
-
-This optimal, this allow the user to change itself an option within the app, he want's the option, he'll change it
+> Note: The `run` is required, without will not work  
+> Markdown should applied like in the sample, with spaces etc...
 
 ## Add to plugin list
 
@@ -58,52 +67,42 @@ Don't remove the example plugin (The app will not work anymore)
 - plugin
 ```
 
-## Init
-
-Before you add settings need to give an plugin name, like this
+## Translate your plugin
 
 ```js
-const plugin = new HWPlugin("myPlugin");
-```
-
-# Translate your plugin
-
-```js
-const string = plugin.strings({
-  de: {
-    enableHCstring: "Aktivire Hohen Kontrast",
-    displayDLbutton: "Download button anzeigen",
-  },
-  en: {
-    enableHCstring: "Enable high contrast",
-    displayDLbutton: "Display download button",
-  },
+initFile((plugin) => {
+  const string = plugin.strings({
+    de: {
+      enableHCstring: "Aktivire Hohen Kontrast",
+      displayDLbutton: "Download button anzeigen",
+    },
+    en: {
+      enableHCstring: "Enable high contrast",
+      displayDLbutton: "Display download button",
+    },
+  });
+  // get string
+  cosole.log(string.enableHCstring);
 });
 ```
 
-Get string
+## Add settings
 
 ```js
-string.enableHCstring;
-```
-
-### Example
-
-```js
-const plugin = new HWPlugin("myPlugin");
-
-plugin.addSettings([
-  {
-    title: "My Plugin",
-    content: [
-      {
-        key: "enableStartupDialog",
-        type: "switch",
-        text: "Dialog on app start",
-      },
-    ],
-  },
-]);
+initFile((plugin) => {
+  plugin.addSettings([
+    {
+      title: "My Plugin",
+      content: [
+        {
+          key: "enableStartupDialog",
+          type: "switch",
+          text: "Dialog on app start",
+        },
+      ],
+    },
+  ]);
+});
 ```
 
 ## Functional Settings
@@ -111,9 +110,11 @@ plugin.addSettings([
 To make an startup dialog, if the setting is turned on
 
 ```js
-if (plugin.getPluginPref("enableStartupDialog") === "true") {
-  alert("Welcome to the App");
-}
+initFile((plugin) => {
+  if (plugin.getPluginPref("enableStartupDialog") === "true") {
+    alert("Welcome to the App");
+  }
+});
 ```
 
 > Note: Useless if you give an Boolean or Number, it will always converted to an string
@@ -121,9 +122,11 @@ if (plugin.getPluginPref("enableStartupDialog") === "true") {
 ## Get plugin information
 
 ```js
-console.log(plugin.getAuthor);
-console.log(plugin.getVersion);
-console.log(plugin.getLanguage);
+initFile((plugin) => {
+  console.log(plugin.getAuthor);
+  console.log(plugin.getVersion);
+  console.log(plugin.getLanguage);
+});
 ```
 
 ## Platform
@@ -131,22 +134,24 @@ console.log(plugin.getLanguage);
 You can allow the plugin on different platforms
 
 ```js
-if (native.isWindows /* native.isAndroid */) {
-  plugin.addSettings([
-    {
-      title: "DLG",
-      content: [
-        {
-          key: "DLG",
-          type: "switch",
-          text: "Dialog on app start",
-        },
-      ],
-    },
-  ]);
-} else {
-  plugin.removeSettings();
-}
+initFile((plugin) => {
+  if (native.isWindows /* native.isAndroid */) {
+    plugin.addSettings([
+      {
+        title: "DLG",
+        content: [
+          {
+            key: "DLG",
+            type: "switch",
+            text: "Dialog on app start",
+          },
+        ],
+      },
+    ]);
+  } else {
+    plugin.removeSettings();
+  }
+});
 ```
 
 ## Get plugin preferences
@@ -154,46 +159,16 @@ if (native.isWindows /* native.isAndroid */) {
 > Note: It returns always an string
 
 ```js
-// get
-plugin.getPluginPref("enableFireworks");
+initFile((plugin) => {
+  // get
+  plugin.getPluginPref("enableFireworks");
 
-// set
-plugin.setPluginPref("enableFireworks", "true");
+  // set
+  plugin.setPluginPref("enableFireworks", "true");
 
-// remove
-plugin.removePluginPref("enableFireworks");
-```
-
-## Override plugin state
-
-Carefull with this, it can brack the plugin functions.
-
-> Note: The `export default` works only Webpack projects
-
-```js
-/**
- * overwrites the default HWPlugin state
- *
- * !! DO NOT OVERWIRTE THE constructor() !!
- */
-class App extends HWPlugin {
-  setPluginPref(key, content) {
-    console.log(this.pluginName + " has set an new pref");
-    native.setPref("Plugin.Settings." + this.pluginName + "." + key, content);
-  }
-
-  getPluginPref(key) {
-    console.log(this.pluginName + " has requsted an pref");
-    return native.getPref("Plugin.Settings." + this.pluginName + "." + key);
-  }
-
-  removePluginPref(key) {
-    console.log(this.pluginName + " removed an pref");
-    native.removePref("Plugin.Settings." + this.pluginName + "." + key);
-  }
-}
-
-export default App;
+  // remove
+  plugin.removePluginPref("enableFireworks");
+});
 ```
 
 ## Others
@@ -201,26 +176,28 @@ export default App;
 Here are other functions that can be used
 
 ```js
-// Will load from C:\hentai-web\plugins\<PLUGINNAME>\styles\index.css
-plugin.loadCSSfromFile("/styles/index.css");
+initFile((plugin) => {
+  // Will load from C:\hentai-web\plugins\<PLUGINNAME>\styles\index.css
+  plugin.loadCSSfromFile("/styles/index.css");
 
-// Load CSS from an object. Lean more about JSS.
-plugin.loadCSS({
-  "@global": {
-    ".card": {
-      border: "1px solid rgb(74 20 140)",
+  // Load CSS from an object. Lean more about JSS.
+  plugin.loadCSS({
+    "@global": {
+      ".card": {
+        border: "1px solid rgb(74 20 140)",
+      },
+      ".card-header": {
+        borderBottom: "1px solid rgb(74 20 140)",
+        backgroundColor: "rgba(74, 20, 140,.03)",
+      },
+      ".search-input--custom": {
+        border: "1px solid rgb(74 20 140)",
+      },
     },
-    ".card-header": {
-      borderBottom: "1px solid rgb(74 20 140)",
-      backgroundColor: "rgba(74, 20, 140,.03)",
-    },
-    ".search-input--custom": {
-      border: "1px solid rgb(74 20 140)",
-    },
-  },
+  });
+
+  // Will load from C:\hentai-web\plugins\<PLUGINNAME>\core\lib.css
+  // Nore: This code will directly executed!
+  plugin.require("/core/lib.js");
 });
-
-// Will load from C:\hentai-web\plugins\<PLUGINNAME>\core\lib.css
-// Nore: This code will directly executed!
-plugin.require("/core/lib.js");
 ```
