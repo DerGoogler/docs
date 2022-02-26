@@ -32,6 +32,8 @@ extra:
 theme:
   name: material
   custom_dir: docs/overrides
+  highlightjs: true
+  hljs_style: github_dark
   features:
     - navigation.indexes
   palette:
