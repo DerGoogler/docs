@@ -1,7 +1,7 @@
 # Create Activity
 How to create an Activity?
 
-```ts
+```tsx
 class ChangelogActivity extends BaseActivity<Props, States> {
   public constructor(props: any) {
     super(props)
