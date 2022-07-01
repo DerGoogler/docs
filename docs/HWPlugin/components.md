@@ -1,3 +1,7 @@
+---
+template: overrides/doc_comments.html
+---
+
 # Components
 
 These components can placed in the plugin description
