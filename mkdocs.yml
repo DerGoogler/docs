@@ -27,8 +27,8 @@ extra:
   version: 1.0
   generator: false
   social:
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/Der_Googler
+    - icon: fontawesome/brands/github
+      link: https://github.com/DerGoogler
 
 theme:
   name: material
