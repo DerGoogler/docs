@@ -1,5 +1,5 @@
-site_name: DGS-Project Docs
-copyright: Copyright &copy; 2017 - 2022 Der_Googler
+site_name: Documentation
+copyright: Copyright &copy; 2017 - 2023 Der_Googler
 site_url: https://docs.dergoogler.com
 
 extra_css:
@@ -19,8 +19,8 @@ markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
 
-repo_url: https://github.com/DerGoogler/docs
-repo_name: DerGoogler/docs
+# repo_url: https://github.com/DerGoogler/docs
+# repo_name: DerGoogler/docs
 edit_uri: https://github.com/DerGoogler/docs/edit/master/docs/
 
 extra:
