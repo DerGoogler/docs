@@ -1,0 +1,8 @@
+:root {
+  --md-primary-fg-color: #0076ff;
+  --md-accent-fg-color:  rgb(0, 71, 179);
+}
+
+html, bods {
+  scroll-behavior: smooth;
+}
