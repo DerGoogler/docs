@@ -4,7 +4,7 @@ Internal activitys currently aren't shared. You should always define a activity 
 
 `ActivityExample` is as the main declared, for main activitys you currently don't need a toolbar
 
-```jsx
+```js
 import React from "react";
 import { Page, Toolbar } from "@mmrl/ui";
 import { Button, ListItem, ListItemIcon } from '@mui/material';
